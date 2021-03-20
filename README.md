@@ -20,19 +20,12 @@ Want to join the community or need support? [Join our Discord](https://discord.g
 ## Getting started
 
 ### Installation
-1. Download the latest release for your operating system [here](https://github.com/dankgrinder/dankgrinder/releases/latest) (darwin is for macOS), or [build from source](#building-from-source). If you build from source you can delete everything besides the compiled binaries and config.yml.
-2. Extract the archive
-3. [Configure](#configuration). Make sure `token` and `channel_id` fields of the instance are set, it will not run otherwise
+1. Link your github to your heroku account. 
+2. Clone this repository, make sure its private, and link your app to the new cloned repo (your app has to have to go buildpack)
+3. Make sure the config.yml has all the settings you want
+4. Deploy your app.
+5. Go to resources and enable the command.
 
-#### Windows
-4. Double click dankgrinder.exe. If the program closes immediately after opening it, open a command prompt and drag the executable to it, then hit enter. You will now be able to see the error
-
-#### Linux
-4. Run the binary:  
-   `$ ./dankgrinder`
-
-#### macOS
-4. Run by double clicking the dankgrinder binary
 
 ### Getting an authorization token
 1. Go to Discord, logged into the account you want to use

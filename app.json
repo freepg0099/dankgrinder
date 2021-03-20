@@ -4,4 +4,9 @@
     "repository": "https://github.com/PangwenE/dankgrinder-heroku",
     "logo": "https://camo.githubusercontent.com/97e447c1bca8a87cfbe756e85e7dba63eba67624936da0b1243457c7cca049a1/68747470733a2f2f692e696d6775722e636f6d2f3341516b3765682e706e67",
     "keywords": ["go", "dankgrinder"]
+    "buildpacks": [
+    {
+      "url": "heroku/go"
+    }
+  ]
   }

@@ -20,11 +20,8 @@ Want to join the community or need support? [Join our Discord](https://discord.g
 ## Getting started
 
 ### Installation
-1. Link your github to your heroku account. 
-2. Clone this repository, make sure its private, and link your app to the new cloned repo (your app has to have to go buildpack)
-3. Make sure the config.yml has all the settings you want
-4. Deploy your app.
-5. Go to resources and enable the command.
+1. CLick the button below.
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?=https://github.com/PangwenE/dankgrinder-heroku)
 
 
 ### Getting an authorization token

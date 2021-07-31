@@ -40,7 +40,6 @@ var exp = struct {
 	trivia,
 	event *regexp.Regexp
 }{
-	search:            regexp.MustCompile(`Pick from the list below and type the name in chat\.\s\x60(.+)\x60,\s\x60(.+)\x60,\s\x60(.+)\x60`),
 	huntEvent:         regexp.MustCompile(`10\sseconds.*\s?([Tt]yping|[Tt]ype)\s\x60(.+)\x60`),
 	hl:                regexp.MustCompile(`Your hint is \*\*([0-9]+)\*\*`),
 	bal:               regexp.MustCompile(`\*\*Wallet\*\*: \x60?⏣?\s?([0-9,]+)\x60?`),
@@ -322,7 +321,7 @@ func (in *Instance) router() *discord.MessageRouter {
 	rtr.NewRoute().
 		Channel(in.ChannelID).
 		Author(DMID).
-		ContentMatchesExp(exp.search).
+		ContentContains("**Where do you want to search?**").
 		RespondsTo(in.Client.User.ID).
 		Handler(in.search)
 

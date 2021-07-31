@@ -166,6 +166,7 @@ func (c *WSConn) readHello() (time.Duration, error) {
 	if err != nil {
 		return 0, fmt.Errorf("error while reading message from websocket: %v", err)
 	}
+	fmt.Printf(string(b))
 
 	var body Event
 	if err := json.Unmarshal(b, &body); err != nil {

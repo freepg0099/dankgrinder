@@ -20,7 +20,7 @@ func (in *Instance) hl(msg discord.Message) {
 	fmt.Println(msg.Embeds[0].Description)
 	hint := exp.hl.FindStringSubmatch(msg.Embeds[0].Description)[1]
 	if hint[0] > 50 {
-		i := 2
+		i := 0
 		url := "https://discord.com/api/v9/interactions"
 
 		data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}
@@ -74,7 +74,7 @@ func (in *Instance) hl(msg discord.Message) {
 		fmt.Println("response Body:", string(body))
 	}
 	if hint[0] < 50 {
-		i := 0
+		i := 2
 		url := "https://discord.com/api/v9/interactions"
 
 		data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}

@@ -35,16 +35,16 @@ shifts:
 
 features:
   commands:
-    beg: false
-    postmeme: false
-    search: false
-    highlow: false
-    fish: false
-    hunt: false
-    dig: false
-    work: false
-    trivia: false
-    crime : false
+    beg: true
+    postmeme: true
+    search: true
+    highlow: true
+    fish: true
+    hunt: true
+    dig: true
+    work: true
+    trivia: true
+    crime : true
 
   custom_commands:
   auto_buy:
@@ -72,7 +72,7 @@ features:
     maximum_balance: 8000000
     minimum_balance: 5000000
   auto_blackjack:
-    enable: false
+    enable: true
     pause_below_balance: 100
     amount: 50
     logic_table:
@@ -380,6 +380,8 @@ compatibility:
     - "sewer"
     - "street"
     - "couch"
+  allowed_crimes:
+    - "tax evasion"
   allowed_scrambles:
     - "scoop"
     - "dirty"
@@ -403,7 +405,7 @@ compatibility:
     - "I have never dug up a body"
     - "I will dig all day and all night"
     - "Never have I ever dug up a body"
-   allowed_scrambles_work:
+  allowed_scrambles_work:
     # discord mod
     - "carl-bot"
     - "moderator"
@@ -1139,6 +1141,7 @@ compatibility:
     - "the fish says glub"
     - "hook line and sinker"
   random_search: true
+  random_crime: true
   cooldown:
     beg: 48
     search: 38

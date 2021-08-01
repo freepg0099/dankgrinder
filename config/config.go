@@ -69,6 +69,8 @@ type Compat struct {
 	AllowedFishFTB       []string `yaml:"allowed_fish_ftb"`
 	FishCancel           []string `yaml:"fish_cancel"`
 	RandomSearch	     bool     `yaml:"random_search"`
+	RandomCrime 		 bool     `yaml:"random_crime"`
+	AllowedCrimes		 []string `yaml:"allowed_crimes"`
 }
 
 type Cooldown struct {

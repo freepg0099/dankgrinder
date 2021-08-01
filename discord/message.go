@@ -7,7 +7,6 @@
 package discord
 
 import (
-	"encoding/json"
 	"time"
 )
 
@@ -91,7 +90,7 @@ type Message struct {
 	WebhookID string `json:"webhook_id,omitempty"`
 
 	// A list of components attached to the message.
-	Components []MessageComponent `json:"-"`
+	Components []MessageComponent `json:"components"`
 
 	// The message which this message references. This field is only set for
 	// messages with type MessageTypeReply.
@@ -102,24 +101,21 @@ type Message struct {
 	ReferencedMessage *Message `json:"referenced_message,omitempty"`
 }
 
-// UnmarshalJSON is a helper function to unmarshal the Message.
-func (m *Message) UnmarshalJSON(data []byte) error {
-	type message Message
-	var v struct {
-		message
-		RawComponents []unmarshalableMessageComponent `json:"components"`
-	}
-	err := json.Unmarshal(data, &v)
-	if err != nil {
-		return err
-	}
-	*m = Message(v.message)
-	m.Components = make([]MessageComponent, len(v.RawComponents))
-	for i, v := range v.RawComponents {
-		m.Components[i] = v.MessageComponent
-	}
-	return err
+type MessageComponent struct {
+	Type int `json:"type"`
+	Buttons []buttons `json:"components"`
 }
+
+type buttons struct {
+	Type int `json:"type"`
+	Style int `json:"style"`
+	Label string `json:"label"`
+	CustomID string `json:"custom_id"`
+	Hash string `json:"hash"`
+	Disabled bool `json:"disabled"`
+}
+
+
 
 type Embed struct {
 	Title string `json:"title,omitempty"`

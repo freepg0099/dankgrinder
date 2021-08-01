@@ -55,9 +55,8 @@ type override struct {
 }
 
 type Compat struct {
-	PostmemeOpts         []string `yaml:"postmeme"`
+
 	AllowedSearches      []string `yaml:"allowed_searches"`
-	SearchCancel         []string `yaml:"search_cancel"`
 	Cooldown             Cooldown `yaml:"cooldown"`
 	AwaitResponseTimeout int      `yaml:"await_response_timeout"`
 	AllowedScrambles     []string `yaml:"allowed_scrambles"`

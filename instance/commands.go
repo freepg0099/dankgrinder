@@ -74,7 +74,7 @@ func (in *Instance) newCmds() []*scheduler.Command {
 		cmds = append(cmds, &scheduler.Command{
 			Value:       postmemeCmdValue,
 			Interval:    time.Duration(in.Compat.Cooldown.Postmeme) * time.Second,
-			AwaitResume: true,
+			AwaitResume: false,
 		})
 	}
 	if in.Features.Commands.Search {
@@ -95,7 +95,7 @@ func (in *Instance) newCmds() []*scheduler.Command {
 		cmds = append(cmds, &scheduler.Command{
 			Value:       highlowCmdValue,
 			Interval:    time.Duration(in.Compat.Cooldown.Highlow) * time.Second,
-			AwaitResume: true,
+			AwaitResume: false,
 		})
 	}
 	if in.Features.Commands.Fish {
@@ -146,7 +146,7 @@ func (in *Instance) newCmds() []*scheduler.Command {
 		cmds = append(cmds, &scheduler.Command{
 			Value:       triviaCmdValue,
 			Interval:    time.Duration(in.Compat.Cooldown.Trivia) * time.Second,
-			AwaitResume: true,
+			AwaitResume: false,
 		})
 	}
 
@@ -203,7 +203,7 @@ func (in *Instance) newAutoBlackjackCmd() *scheduler.Command {
 			correctBalance := in.Features.AutoBlackjack.PauseBelowBalance == 0 || in.balance >= in.Features.AutoBlackjack.PauseBelowBalance
 			return correctBalance && in.balance < 10000000
 		},
-		AwaitResume:          true,
+		AwaitResume:          false,
 		RescheduleAsPriority: in.Features.AutoBlackjack.Priority,
 	}
 	if in.Features.AutoBlackjack.Amount == 0 {

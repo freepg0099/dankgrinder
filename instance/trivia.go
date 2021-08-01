@@ -1,16 +1,17 @@
 package instance
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"html"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path"
 	"path/filepath"
 
 	"github.com/dankgrinder/dankgrinder/discord"
-	"github.com/dankgrinder/dankgrinder/instance/scheduler"
 )
 
 type Database struct {
@@ -26,7 +27,6 @@ func (in *Instance) trivia(msg discord.Message) {
 
 	details := exp.trivia.FindStringSubmatch(msg.Embeds[0].Description)[1:]
 	question := details[0]
-	choices := map[string]string{details[2]: details[1], details[4]: details[3], details[6]: details[5], details[8]: details[7]}
 
 	ex, _ := os.Executable()
 	ex = filepath.ToSlash(ex)
@@ -43,19 +43,36 @@ func (in *Instance) trivia(msg discord.Message) {
 
 	for i := 0; i < len(database.Database); i++ {
 		if question == html.UnescapeString(database.Database[i].Question) {
-			var res = choices[html.UnescapeString(database.Database[i].Answer)]
-			in.sdlr.ResumeWithCommandOrPrioritySchedule(&scheduler.Command{
-				Value: res,
-				Log:   "responding to trivia",
-			})
+			var answer = html.UnescapeString(database.Database[i].Answer)
+			for i := 0; i < 4; i++ {
+				if answer == msg.Components[0].Buttons[i].Label {
+					url := "https://discord.com/api/v9/interactions"
+
+					data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}
+					values := map[string]interface{}{"application_id": "270904126974590976", "channel_id": in.ChannelID, "type": "3", "data": data, "guild_id": msg.GuildID, "message_flags": 0, "message_id": msg.ID}
+					json_data, err := json.Marshal(values)
+
+					if err != nil {
+						fmt.Println(err)
+					}
+					req, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
+					req.Header.Set("authorization", in.Client.Token)
+					req.Header.Set("Content-Type", "application/json")
+
+					client := &http.Client{}
+					resp, err := client.Do(req)
+					if err != nil {
+						panic(err)
+					}
+					defer resp.Body.Close()
+
+					fmt.Println("response Status:", resp.Status)
+					fmt.Println("response Headers:", resp.Header)
+					body, _ := ioutil.ReadAll(resp.Body)
+					fmt.Println("response Body:", string(body))
+				}
+
+			}
 		}
 	}
 }
-
-//		choice := []string{"A", "B", "C", "D"}
-//		randomIndice := rand.Intn(len(choice))
-//		res := choice[randomIndice]
-//		in.sdlr.ResumeWithCommandOrPrioritySchedule(&scheduler.Command{
-//			Value: res,
-//			Log:   "responding to trivia",
-//		})

@@ -7,29 +7,98 @@
 package instance
 
 import (
-	"strconv"
-	"strings"
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
 
 	"github.com/dankgrinder/dankgrinder/discord"
-	"github.com/dankgrinder/dankgrinder/instance/scheduler"
 )
 
 func (in *Instance) hl(msg discord.Message) {
-	if !exp.hl.MatchString(msg.Embeds[0].Description) {
-		return
+	fmt.Println(msg.Embeds[0].Description)
+	hint := exp.hl.FindStringSubmatch(msg.Embeds[0].Description)[1]
+	if hint[0] > 50 {
+		i := 2
+		url := "https://discord.com/api/v9/interactions"
+
+		data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}
+		values := map[string]interface{}{"application_id": "270904126974590976", "channel_id": in.ChannelID, "type": "3", "data": data, "guild_id": msg.GuildID, "message_flags": 0, "message_id": msg.ID}
+		json_data, err := json.Marshal(values)
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
+		req.Header.Set("authorization", in.Client.Token)
+		req.Header.Set("Content-Type", "application/json")
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		fmt.Println("response Status:", resp.Status)
+		fmt.Println("response Headers:", resp.Header)
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println("response Body:", string(body))
 	}
-	nstr := strings.Replace(exp.hl.FindStringSubmatch(msg.Embeds[0].Description)[1], ",", "", -1)
-	n, err := strconv.Atoi(nstr)
-	if err != nil {
-		in.Logger.Errorf("error while reading highlow hint: %v", err)
-		return
+	if hint[0] == 50 {
+		i := 1
+		url := "https://discord.com/api/v9/interactions"
+
+		data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}
+		values := map[string]interface{}{"application_id": "270904126974590976", "channel_id": in.ChannelID, "type": "3", "data": data, "guild_id": msg.GuildID, "message_flags": 0, "message_id": msg.ID}
+		json_data, err := json.Marshal(values)
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
+		req.Header.Set("authorization", in.Client.Token)
+		req.Header.Set("Content-Type", "application/json")
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		fmt.Println("response Status:", resp.Status)
+		fmt.Println("response Headers:", resp.Header)
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println("response Body:", string(body))
 	}
-	res := "high"
-	if n > 50 {
-		res = "low"
+	if hint[0] < 50 {
+		i := 0
+		url := "https://discord.com/api/v9/interactions"
+
+		data := map[string]interface{}{"component_type": msg.Components[0].Buttons[i].Type, "custom_id": msg.Components[0].Buttons[i].CustomID, "hash": msg.Components[0].Buttons[i].Hash}
+		values := map[string]interface{}{"application_id": "270904126974590976", "channel_id": in.ChannelID, "type": "3", "data": data, "guild_id": msg.GuildID, "message_flags": 0, "message_id": msg.ID}
+		json_data, err := json.Marshal(values)
+
+		if err != nil {
+			fmt.Println(err)
+		}
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
+		req.Header.Set("authorization", in.Client.Token)
+		req.Header.Set("Content-Type", "application/json")
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		fmt.Println("response Status:", resp.Status)
+		fmt.Println("response Headers:", resp.Header)
+		body, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println("response Body:", string(body))
 	}
-	in.sdlr.ResumeWithCommandOrPrioritySchedule(&scheduler.Command{
-		Value: res,
-		Log:   "responding to highlow",
-	})
+
 }

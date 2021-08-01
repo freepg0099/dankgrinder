@@ -12,10 +12,6 @@ import (
 )
 
 func (in *Instance) abLaptop(_ discord.Message) {
-	trigger := in.sdlr.AwaitResumeTrigger()
-	if trigger == nil || trigger.Value != postmemeCmdValue {
-		return
-	}
 	in.sdlr.ResumeWithCommand(&scheduler.Command{
 		Value: buyCmdValue("1", "laptop"),
 		Log:   "no laptop, buying a new one",

@@ -69,6 +69,7 @@ type Compat struct {
 	AllowedScramblesFish []string `yaml:"allowed_scrambles_fish"`
 	AllowedFishFTB       []string `yaml:"allowed_fish_ftb"`
 	FishCancel           []string `yaml:"fish_cancel"`
+	RandomSearch	     bool     `yaml:"random_search"`
 }
 
 type Cooldown struct {
@@ -85,6 +86,7 @@ type Cooldown struct {
 	Dig       int `yaml:"dig"`
 	Work      int `yaml:"work"`
 	Trivia    int `yaml:"trivia"`
+	Crime     int `yaml:"crime"`
 }
 
 type Features struct {
@@ -164,6 +166,7 @@ type Commands struct {
 	Dig      bool `yaml:"dig"`
 	Work     bool `yaml:"work"`
 	Trivia   bool `yaml:"trivia"`
+	Crime    bool `yaml:"crime"`
 }
 
 type SuspicionAvoidance struct {

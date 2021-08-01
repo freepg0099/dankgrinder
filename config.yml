@@ -1,4 +1,3 @@
-@@ -1,474 +0,0 @@
 # See https://github.com/dankgrinder/dankgrinder#getting-an-authorization-token
 # for instructions on how to get a token.
 #
@@ -36,18 +35,18 @@ shifts:
 
 features:
   commands:
-    beg: true
-    postmeme: true
+    beg: false
+    postmeme: false
     search: true
-    highlow: true
-    fish: true
-    hunt: true
-    dig: true
-    work: true
-    trivia: true 
+    highlow: false
+    fish: false
+    hunt: false
+    dig: false
+    work: false
+    trivia: false 
+    crime : true
 
   custom_commands:
-  - value: "pls work mod"
   auto_buy:
     fishing_pole: true
     hunting_rifle: true
@@ -364,16 +363,28 @@ compatibility:
     - "c"
     - "k"
   allowed_searches:
+    - "purse"
+    - "dog"
+    - "vacuum"
+    - "basement"
+    - "mels room"
+    - "uber"
+    - "bed"
+    - "crawlspace"
+    - "washer"
+    - "fridge"
     - "bus"
+    - "area51"
     - "coat"
-    - "dresser"
-    - "grass"
-    - "laundromat"
-    - "mailbox"
-    - "pantry"
-    - "pocket"
-    - "shoe"
-    - "sink"
+    - "bushes"
+    - "discord"
+    - "car"
+    - "van"
+    - "tree"
+    - "glovebox"
+    - "sewer"
+    - "street"
+    - "couch"
   search_cancel:
     - "no"
     - "bad options"
@@ -450,6 +461,7 @@ compatibility:
     - "get the camera ready mom"
     - "the fish says glub"
     - "hook line and sinker"
+  random_search: true
   cooldown:
     beg: 48
     search: 38
@@ -464,6 +476,7 @@ compatibility:
     dig: 42
     work: 3600
     trivia: 15
+    crime : 50
   await_response_timeout: 7
 
 suspicion_avoidance:

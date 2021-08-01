@@ -38,6 +38,7 @@ var exp = struct {
 	fishEventReverse,
 	fishEventRetype,
 	trivia,
+	crime,
 	event *regexp.Regexp
 }{
 	huntEvent:         regexp.MustCompile(`10\sseconds.*\s?([Tt]yping|[Tt]ype)\s\x60(.+)\x60`),
@@ -324,6 +325,14 @@ func (in *Instance) router() *discord.MessageRouter {
 		ContentContains("**Where do you want to search?**").
 		RespondsTo(in.Client.User.ID).
 		Handler(in.search)
+		
+	// Crime
+	rtr.NewRoute().
+		Channel(in.ChannelID).
+		Author(DMID).
+		ContentContains("**What crime do you want to commit?**").
+		RespondsTo(in.Client.User.ID).
+		Handler(in.crime)
 
 	// Highlow.
 	rtr.NewRoute().

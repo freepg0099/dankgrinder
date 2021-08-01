@@ -58,7 +58,7 @@ A working Go installation, see https://golang.org/doc/install.
 
 ### Building
 1. Clone the repository:  
-   `$ git clone https://github.com/dankgrinder/dankgrinder.git`
+   `$ git clone --single-branch --branch update30July https://github.com/V4NSH4J/dankgrinder.git`
 2. Build:  
    `$ make build`
 
